@@ -46,6 +46,7 @@ d_Baseline_FP_Alpha %>% group_by(Condition) %>% summarise(Mean = mean(Alpha))
 m_FP_baseline_FP_Alpha <- gam(Alpha ~
                                 s(c_age, bs="tp", by = Condition) +
                                 Condition +
+                                s(dyadID, bs="re")+
                                 s(SID, bs = "re"),
                               method = 'REML', 
                               data = d_Baseline_FP_Alpha)
@@ -69,6 +70,7 @@ d_Baseline_FP_Prisky %>% group_by(Condition) %>% summarise(Mean = mean(Prisky))
 m_FP_baseline_FP_Prisky_sqz <- gam(Prisky_sqz ~
                                      s(c_age, bs="tp", by = Condition) +
                                      Condition +
+                                     s(dyadID, bs="re")+
                                      s(SID, bs = "re"),
                                    method = 'REML', 
                                    family = betar,
@@ -111,6 +113,7 @@ d_mfitbhv_DA_BA_alpha%>% group_by(cond)%>%summarise(mean(alpha, na.rm = T))
 m_mfitbhv_BA_DA_gam <- gam(alpha ~ 
                              s(c_age, bs = "tp", by = cond) +
                              cond + 
+                             s(dyadID, bs="re")+
                              s(SID, bs = "re"), 
                            method = "REML", 
                            data = d_mfitbhv_DA_BA_alpha)
@@ -122,6 +125,7 @@ d_mfitbhv_DA_BA%>% group_by(cond)%>%summarise(mean(Prisky, na.rm = T))
 m_mfitbhv_BA_DA_gam_Prisky_sqz <- gam(Prisky_sqz ~ 
                                         s(c_age, bs = "tp", by = cond) +
                                         cond + 
+                                        s(dyadID, bs="re")+
                                         s(SID, bs = "re"), 
                                       method = "REML", 
                                       family = betar,
@@ -133,7 +137,8 @@ d_mfitbhv_DA_BA_alpha%>% group_by(cond)%>%summarise(mean(weight_frd, na.rm = T))
 
 m_BADA_weight_frd_excluA2 <- gam(weight_frd ~
                                    s(c_age, bs="tp", by = cond) +
-                                   cond+s(SID, bs = "re"),
+                                   cond+s(dyadID, bs="re")+
+                                   s(SID, bs = "re"),
                                  method = 'REML',
                                  data = d_mfitbhv_DA_BA_alpha)
 summary(m_BADA_weight_frd_excluA2)
@@ -158,6 +163,7 @@ d_mfitbhv_DA_BA%>% group_by(cond)%>%summarise(mean(totalEarn_prop, na.rm = T))
 m_BADA_totalEarnprop_beta_REML <- gam(totalEarn_prop_sqz ~
                                         s(c_age, bs="tp", by = cond) +
                                         cond +
+                                        s(dyadID, bs="re")+
                                         s(SID, bs = "re"),
                                       method = 'REML',
                                       family = betar,
@@ -204,6 +210,7 @@ plogis(summary(m_original_wanted_intcp)$p.coeff -
 
 #####                 age only                   #####
 accm_age <- gam(relinquish ~ s(c_age, bs="tp") +
+s(dyadID, bs="re")+
                   s(SID, bs = "re"), 
                 method = 'REML', 
                 family = binomial, 
@@ -217,6 +224,7 @@ d_test6 %>% group_by(response_self_BA) %>%
 m_original_wanted<-gam(relinquish ~
                          s(c_age, bs="tp", by = response_self_BA) +
                          response_self_BA +
+                         s(dyadID, bs="re")+
                          s(SID, bs = "re"),
                        method = "REML",
                        family=binomial,
@@ -238,6 +246,7 @@ d_test6 %>% group_by(EV_safe_risky) %>%
 
 m_6EV_safe_risky<-gam(relinquish ~ s(c_age, bs="tp", by = EV_safe_risky) + 
                         EV_safe_risky + 
+                        s(dyadID, bs="re")+
                         s(SID, bs = "re"), 
                       method = "REML",
                       family=binomial,
