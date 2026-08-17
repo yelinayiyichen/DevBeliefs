@@ -136,7 +136,7 @@ hist((d_test6 %>% filter(EV_type == "RD") %>% dplyr::select(SID, age) %>% unique
 d_test6$EV_safe_risky <- relevel(d_test6$EV_safe_risky,ref = "risky-RA")
 
 m_6EV_safe_risky<-gam(relinquish ~ s(c_age, bs="tp", by = EV_safe_risky) + 
-                        EV_safe_risky + s(SID, bs = "re"), method = "REML",
+                        EV_safe_risky + s(dyadID, bs="re")+s(SID, bs = "re"), method = "REML",
                       family=binomial,data = d_test6)
 summary(m_6EV_safe_risky)
 
@@ -149,7 +149,7 @@ plot_diff(m_6EV_safe_risky, view = "c_age", sim.ci = TRUE, comp = list(EV_safe_r
 d_test6$EV_safe_risky <- relevel(d_test6$EV_safe_risky,ref = "risky-RD")
 
 m_6EV_safe_risky<-gam(relinquish ~ s(c_age, bs="tp", by = EV_safe_risky) + 
-                        EV_safe_risky + s(SID, bs = "re"), method = "REML",
+                        EV_safe_risky + s(dyadID, bs="re")+s(SID, bs = "re"), method = "REML",
                       family=binomial,data = d_test6)
 summary(m_6EV_safe_risky)
 
@@ -161,6 +161,7 @@ m_zoomA_accm <- gam(relinquish ~ s(c_age, bs="tp", by = viewing_status) +
                       viewing_status +
                       Amount + 
                       Chance +
+                      s(dyadID, bs="re")+
                       s(SID, bs = "re"), 
                     method = 'REML', 
                     family = binomial, 
@@ -171,6 +172,7 @@ m_accm_age <- gam(relinquish ~ s(c_age, bs="tp") +
                     viewing_status + 
                     Amount + 
                     Chance + 
+                    s(dyadID, bs="re")+
                     s(SID, bs = "re"), 
                   method = 'REML', 
                   family = binomial, 
